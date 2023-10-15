@@ -3,11 +3,10 @@ import { Inter } from "next/font/google";
 import { useWeb3React } from "@web3-react/core";
 import MetaMaskCard from "@/components/MetaMaskCard";
 import WalletConnectCard from "@/components/WalletConnectCard";
-// useWeb3React
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { connector, account } = useWeb3React();
+  const { account, isActive, provider } = useWeb3React();
   return (
     <>
       <Head>
@@ -39,6 +38,23 @@ export default function Home() {
           <div>
             <WalletConnectCard />
           </div>
+          {isActive && (
+            <div>
+              <h2>署名</h2>
+              <button
+                onClick={async () => {
+                  if (provider) {
+                    const message = await provider
+                      .getSigner()
+                      .signMessage("hello");
+                    console.log(message);
+                  }
+                }}
+              >
+                hello
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </>

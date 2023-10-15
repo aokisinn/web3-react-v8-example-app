@@ -1,9 +1,13 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-
+import { useWeb3React } from "@web3-react/core";
+import MetaMaskCard from "@/components/MetaMaskCard";
+import WalletConnectCard from "@/components/WalletConnectCard";
+// useWeb3React
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { connector, account } = useWeb3React();
   return (
     <>
       <Head>
@@ -26,16 +30,14 @@ export default function Home() {
         >
           <h1>Web3 Connectors</h1>
           <div>
-            <h2>eip1193</h2>
-            <button>Connect</button>
+            <h2>Account</h2>
+            <p>{account}</p>
           </div>
           <div>
-            <h2>MetaMask</h2>
-            <button>Connect</button>
+            <MetaMaskCard />
           </div>
           <div>
-            <h2>walletconnect-v2</h2>
-            <button>Connect</button>
+            <WalletConnectCard />
           </div>
         </div>
       </main>
